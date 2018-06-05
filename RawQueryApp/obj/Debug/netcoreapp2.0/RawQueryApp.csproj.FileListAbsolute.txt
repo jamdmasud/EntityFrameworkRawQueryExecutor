@@ -1,0 +1,11 @@
+C:\Users\Masud\source\repos\RawQueryApp\RawQueryApp\bin\Debug\netcoreapp2.0\RawQueryApp.deps.json
+C:\Users\Masud\source\repos\RawQueryApp\RawQueryApp\bin\Debug\netcoreapp2.0\RawQueryApp.runtimeconfig.json
+C:\Users\Masud\source\repos\RawQueryApp\RawQueryApp\bin\Debug\netcoreapp2.0\RawQueryApp.runtimeconfig.dev.json
+C:\Users\Masud\source\repos\RawQueryApp\RawQueryApp\bin\Debug\netcoreapp2.0\RawQueryApp.dll
+C:\Users\Masud\source\repos\RawQueryApp\RawQueryApp\obj\Debug\netcoreapp2.0\RawQueryApp.csprojResolveAssemblyReference.cache
+C:\Users\Masud\source\repos\RawQueryApp\RawQueryApp\obj\Debug\netcoreapp2.0\RawQueryApp.csproj.CoreCompileInputs.cache
+C:\Users\Masud\source\repos\RawQueryApp\RawQueryApp\obj\Debug\netcoreapp2.0\RawQueryApp.AssemblyInfoInputs.cache
+C:\Users\Masud\source\repos\RawQueryApp\RawQueryApp\obj\Debug\netcoreapp2.0\RawQueryApp.AssemblyInfo.cs
+C:\Users\Masud\source\repos\RawQueryApp\RawQueryApp\bin\Debug\netcoreapp2.0\RawQueryApp.pdb
+C:\Users\Masud\source\repos\RawQueryApp\RawQueryApp\obj\Debug\netcoreapp2.0\RawQueryApp.dll
+C:\Users\Masud\source\repos\RawQueryApp\RawQueryApp\obj\Debug\netcoreapp2.0\RawQueryApp.pdb
