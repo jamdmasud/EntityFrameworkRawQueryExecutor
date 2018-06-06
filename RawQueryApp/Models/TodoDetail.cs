@@ -8,7 +8,7 @@ namespace RawQueryApp
 
         public Guid Id { get; set; }
         public Guid TodoId { get; set; }
-        public string Description { get; set; }
+        public byte[] Description { get; set; }
         
     }
 }
