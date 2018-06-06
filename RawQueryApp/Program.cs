@@ -20,6 +20,9 @@ namespace RawQueryApp
             Console.WriteLine("Read TodoItem from Database.");
             ReadTodoItem();
 
+            Console.WriteLine("\n\nRead scalar value of TodoDetail.");
+            ReadScalar();
+
             Console.WriteLine("\n\nRead TodoDetail from Database.");
             ReadTodoDetail();
 
@@ -49,15 +52,17 @@ namespace RawQueryApp
             var lst = new List<TodoDetail>();
             string query = @"SELECT * FROM   dbo.TodoDetail";
             lst = QueryExecutor.ExecSQL<TodoDetail>(query);
-            //foreach (TodoDetail item in lst)
-            //{
-            //    if (!string.IsNullOrEmpty(item.Description))
-            //    {
-            //        Console.WriteLine("__________________________________________________________________");
-            //        string replacement = Regex.Replace(item.Description, @"\t|\n|\r", "");
-            //        Console.WriteLine($"\nDescription: {replacement}.");
-            //    }
-            //}
+
+            foreach (TodoDetail item in lst)
+            {
+                string str = QueryExecutor.ExecDecrypt(item.Description);
+                if (!string.IsNullOrEmpty(str))
+                {
+                    Console.WriteLine("__________________________________________________________________");
+                    string replacement = Regex.Replace(str, @"\t|\n|\r", "");
+                    Console.WriteLine($"\nDescription: {replacement}.");
+                }
+            }
         }
 
         private static void ReadTodoViewModel()
@@ -66,16 +71,26 @@ namespace RawQueryApp
             string query = @"select ti.Task, td.Description, ti.IsCompleted from TodoItem ti left join TodoDetail td on ti.Id = td.TodoId";
             lst = QueryExecutor.ExecSQL<VmTask>(query);
 
-            //foreach (VmTask item in lst)
-            //{
-            //    if (!string.IsNullOrEmpty(item.Descriptions))
-            //    {
-            //        Console.WriteLine("__________________________________________________________________");
-            //        string replacement = Regex.Replace(item.Descriptions, @"\t|\n|\r", "");
-            //        Console.WriteLine($"Task: {item.Task}. \nDescription: {replacement} \nIs Done: {item.IsCompleted}.");
-            //    }
-            //}
+            foreach (VmTask item in lst)
+            {
+                string str = QueryExecutor.ExecDecrypt(item.Description);
+                if (!string.IsNullOrEmpty(str))
+                {
+                    Console.WriteLine("__________________________________________________________________");
+                    string replacement = Regex.Replace(str, @"\t|\n|\r", "");
+                    Console.WriteLine($"Task: {item.Task}. \nDescription: {replacement} \nIs Done: {item.IsCompleted}.");
+                }
+            }
         }
+
+        private static void ReadScalar()
+        {
+            string query = @"select TodoId from TodoDetail where Id = '2BA6B6FF-71E8-4776-AC24-753572E6F277'";
+            string data = QueryExecutor.ExecScalar(query).ToString();
+            Console.WriteLine("__________________________________________________________________");
+            Console.WriteLine(data);
+        }
+
 
         private static void WriteTodoDetail()
         {

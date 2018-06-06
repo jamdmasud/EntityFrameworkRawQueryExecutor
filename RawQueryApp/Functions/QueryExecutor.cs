@@ -11,37 +11,70 @@ namespace RawQueryApp
     {
         public static List<T> ExecSQL<T>(string query)
         {
-            using (var context = new ApplicationDbContext())
+            try
             {
-                using (var command = context.Database.GetDbConnection().CreateCommand())
+                using (var context = new ApplicationDbContext())
                 {
-                    command.CommandText = query;
-                    command.CommandType = CommandType.Text;
-                    context.Database.OpenConnection();
-
-                    using (var result = command.ExecuteReader())
+                    using (var command = context.Database.GetDbConnection().CreateCommand())
                     {
-                        List<T> list = new List<T>();
-                        T obj = default(T);
-                        while (result.Read())
+                        command.CommandText = query;
+                        command.CommandType = CommandType.Text;
+                        context.Database.OpenConnection();
+
+                        using (var result = command.ExecuteReader())
                         {
-                            obj = Activator.CreateInstance<T>();
-                            foreach (PropertyInfo prop in obj.GetType().GetProperties())
+                            List<T> list = new List<T>();
+                            T obj = default(T);
+                            while (result.Read())
                             {
-                                try
+                                obj = Activator.CreateInstance<T>();
+                                foreach (PropertyInfo prop in obj.GetType().GetProperties())
                                 {
-                                    if (!object.Equals(result[prop.Name], DBNull.Value))
+                                    try
                                     {
-                                        prop.SetValue(obj, result[prop.Name], null);
+                                        if (!object.Equals(result[prop.Name], DBNull.Value))
+                                        {
+                                            prop.SetValue(obj, result[prop.Name], null);
+                                        }
                                     }
+                                    catch { }
                                 }
-                                catch { }
+                                list.Add(obj);
                             }
-                            list.Add(obj);
+                            return list;
                         }
-                        return list;
                     }
                 }
+            }catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return new List<T>();
+            }
+        }
+
+        public static object ExecScalar(string query)
+        {
+            try
+            {
+                object obj = new object();
+                using (var context = new ApplicationDbContext())
+                {
+                    using (var command = context.Database.GetDbConnection().CreateCommand())
+                    {
+                        command.CommandText = query;
+                        command.CommandType = CommandType.Text;
+                        context.Database.OpenConnection();
+
+                        obj = command.ExecuteScalar();
+                    }
+                    context.Database.CloseConnection();
+
+                    return obj;
+                }
+            }catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return new object();
             }
         }
 
